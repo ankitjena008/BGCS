@@ -41,12 +41,13 @@ require("babel-polyfill");
 // process.on('unhandledRejection', (reason, p) => {
 //     console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
 // });
-(function () {
+(function foo() {
     return __awaiter(this, void 0, void 0, function () {
-        var getBase, getPublicKey, aliceBase, eveBase, malloryBase, reviewerBase, aliceKey, eveKey, malloryKey, reviewerKey, data, data1, data2, commit_id1, commit_id2, commit_id3, encryptedData1, encryptedData2, encryptedData3, _i, _a, _b, key, value, grantFields, grantFields1, grantFields2, temp;
+        var getBase, getPublicKey, bobBase, reviewerKey, data, cleanliness, buggyness, secureness, efficiency, commit_id, rating_data, encryptedData, _i, _a, _b, key, value, grantFields, temp;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
+                    alert('Hi');
                     getBase = (function (passphrase) {
                         return __awaiter(this, void 0, void 0, function () {
                             var base, keyPair, account, e_1;
@@ -98,70 +99,44 @@ require("babel-polyfill");
                         });
                     });
                     console.log('Hello');
-                    return [4 /*yield*/, getBase("alice")];
+                    return [4 /*yield*/, getBase("bob_new")];
                 case 1:
-                    aliceBase = _c.sent();
-                    return [4 /*yield*/, getBase("eve")];
+                    bobBase = _c.sent();
+                    return [4 /*yield*/, getPublicKey("bob_new")];
                 case 2:
-                    eveBase = _c.sent();
-                    return [4 /*yield*/, getBase("mallory")];
-                case 3:
-                    malloryBase = _c.sent();
-                    return [4 /*yield*/, getBase("reviewer")];
-                case 4:
-                    reviewerBase = _c.sent();
-                    return [4 /*yield*/, getPublicKey("alice")];
-                case 5:
-                    aliceKey = _c.sent();
-                    return [4 /*yield*/, getPublicKey("eve")];
-                case 6:
-                    eveKey = _c.sent();
-                    return [4 /*yield*/, getPublicKey("mallory")];
-                case 7:
-                    malloryKey = _c.sent();
-                    return [4 /*yield*/, getPublicKey("reviewer")];
-                case 8:
                     reviewerKey = _c.sent();
                     data = new Map();
-                    data1 = new Map();
-                    data2 = new Map();
-                    commit_id1 = "commit_1";
-                    commit_id2 = "commit_2";
-                    commit_id3 = "commit_3";
-                    data.set(commit_id1, "https://github.com/bitclave/base-tutorial/commit/3993254b7c13d7617b7f2add9cb00c24fd10508a");
-                    data1.set(commit_id2, "https://github.com/bitclave/base-tutorial/commit/64fd301d6d540d04468e43b6e5d2ea5bb870acd6");
-                    data2.set(commit_id3, "https://github.com/bitclave/base-tutorial/commit/8909a0a371d916914e64bb0b894f61552d55989c");
-                    return [4 /*yield*/, aliceBase.profileManager.updateData(data)];
-                case 9:
-                    encryptedData1 = _c.sent();
-                    return [4 /*yield*/, eveBase.profileManager.updateData(data1)];
-                case 10:
-                    encryptedData2 = _c.sent();
-                    return [4 /*yield*/, malloryBase.profileManager.updateData(data2)];
-                case 11:
-                    encryptedData3 = _c.sent();
+                    cleanliness = document.getElementById('cleanliness').value;
+                    buggyness = document.getElementById('buggyness').value;
+                    secureness = document.getElementById('secureness').value;
+                    efficiency = document.getElementById('efficiency').value;
+                    commit_id = "rating_key";
+                    rating_data = JSON.stringify({ "cleanliness": cleanliness, "buggyness": buggyness, "secureness": secureness, "efficiency": efficiency });
+                    // rating_data = JSON.stringify(rating_data);
+                    data.set(commit_id, rating_data);
+                    return [4 /*yield*/, bobBase.profileManager.updateData(data)];
+                case 3:
+                    encryptedData = _c.sent();
                     console.log("\nUser data is encrypted and saved to Base.");
-                    for (_i = 0, _a = encryptedData1.entries(); _i < _a.length; _i++) {
+                    for (_i = 0, _a = encryptedData.entries(); _i < _a.length; _i++) {
                         _b = _a[_i], key = _b[0], value = _b[1];
                         console.log("Key:" + key + ", Encrypted Value:" + value);
                     }
                     grantFields = new Map();
-                    grantFields.set(commit_id1, 0);
-                    return [4 /*yield*/, aliceBase.dataRequestManager.grantAccessForClient(reviewerKey, grantFields)];
-                case 12:
+                    grantFields.set(commit_id, 0);
+                    // grantFields.set(bugginess, 0);
+                    // grantFields.set(secureness, 0);
+                    // grantFields.set(efficiency, 0);
+                    return [4 /*yield*/, bobBase.dataRequestManager.grantAccessForClient(reviewerKey, grantFields)];
+                case 4:
+                    // grantFields.set(bugginess, 0);
+                    // grantFields.set(secureness, 0);
+                    // grantFields.set(efficiency, 0);
                     _c.sent();
-                    grantFields1 = new Map();
-                    grantFields1.set(commit_id2, 0);
-                    return [4 /*yield*/, eveBase.dataRequestManager.grantAccessForClient(reviewerKey, grantFields1)];
-                case 13:
-                    _c.sent();
-                    grantFields2 = new Map();
-                    grantFields2.set(commit_id3, 0);
-                    return [4 /*yield*/, malloryBase.dataRequestManager.grantAccessForClient(reviewerKey, grantFields2)];
-                case 14:
-                    _c.sent();
-                    return [4 /*yield*/, reviewerBase.dataRequestManager.getRequests(reviewerKey, "")];
-                case 15:
+                    console.log("IM A BANANA");
+                    alert('Bye');
+                    return [4 /*yield*/, bobBase.dataRequestManager.getRequests(reviewerKey, "")];
+                case 5:
                     temp = _c.sent();
                     temp.forEach(function (approval) {
                         return __awaiter(this, void 0, void 0, function () {
@@ -171,7 +146,7 @@ require("babel-polyfill");
                                     case 0:
                                         //respond to approval
                                         _b = (_a = console).log;
-                                        return [4 /*yield*/, reviewerBase.profileManager.getAuthorizedData(approval.toPk, approval.responseData)];
+                                        return [4 /*yield*/, bobBase.profileManager.getAuthorizedData(approval.toPk, approval.responseData)];
                                     case 1:
                                         //respond to approval
                                         _b.apply(_a, [_c.sent()]);

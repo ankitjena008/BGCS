@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script>var exports = {};</script>
+	<script type="text/javascript" src="all.js"></script>
+</head>
+<body>
+
+<div style="padding-bottom: 18px;">How clean is the code?<br>
+<select id="cleanliness">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+</div>
+
+
+<div style="padding-bottom: 18px;">How buggy is the code?<br>
+<select id="buggyness">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+</div>
+
+<div style="padding-bottom: 18px;">How secure is the code?<br>
+<select id="secureness">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+</div>
+
+<div style="padding-bottom: 18px;">How efficient is the code?<br>
+<select id="efficiency">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+</div>
+<input value = "Click Me" type="button" id="mybtn" onclick="bar()">
+<script>
+	var commit_url = window.location.search;
+window.onload = function(){
+window.open(decodeURIComponent(commit_url.substring(1)), '_blank');
+}
+</script>
+</body>
+</html>
+

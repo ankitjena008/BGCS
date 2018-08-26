@@ -10,7 +10,9 @@ require("babel-polyfill");
 //     console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
 // });
 
-(async function() {
+
+(async function foo() {
+
     var getBase = (async function(passphrase) {
         //Initialize Base
         var base = new Base("https://base2-bitclva-com.herokuapp.com", 'localhost', '', '');
@@ -46,58 +48,68 @@ require("babel-polyfill");
     })
 
     console.log('Hello')
-    let aliceBase = await getBase("alice")
-    let eveBase = await getBase("eve")
-    let malloryBase = await getBase("mallory")
-    let reviewerBase = await getBase("reviewer")
+    let bobBase = await getBase("bob_new")
 
-    let aliceKey = await getPublicKey("alice")
-    let eveKey = await getPublicKey("eve")
-    let malloryKey = await getPublicKey("mallory")
-    let reviewerKey = await getPublicKey("reviewer")
+    let reviewerKey = await getPublicKey("bob_new")
 
     
     let data = new Map();
-    let data1 = new Map();
-    let data2 = new Map();
-    // let data = new Base.
-    var commit_id1 = "commit_1";
-    var commit_id2 = "commit_2";
-    var commit_id3 = "commit_3";
-    data.set(commit_id1, "https://github.com/bitclave/base-tutorial/commit/3993254b7c13d7617b7f2add9cb00c24fd10508a");
-    data1.set(commit_id2, "https://github.com/bitclave/base-tutorial/commit/64fd301d6d540d04468e43b6e5d2ea5bb870acd6");
-    data2.set(commit_id3, "https://github.com/bitclave/base-tutorial/commit/8909a0a371d916914e64bb0b894f61552d55989c");
-    // data.set("lastname", "Doe");
-    // data.set("email", "john.doe@gmail.com");
-    // data.set("city", "NewYork");
+
+    var cleanliness = (<HTMLInputElement>document.getElementById('cleanliness')).value;
+    var buggyness = (<HTMLInputElement>document.getElementById('buggyness')).value;
+    var secureness = (<HTMLInputElement>document.getElementById('secureness')).value;
+    var efficiency = (<HTMLInputElement>document.getElementById('efficiency')).value;
+
+    var commit_id = "rating_key";
+    var rating_data = JSON.stringify({"cleanliness":cleanliness, "buggyness":buggyness, "secureness":secureness, "efficiency":efficiency});
+    // rating_data = JSON.stringify(rating_data);
+    data.set(commit_id, rating_data);
+    
+
+    // data.set('cleanliness', cleanliness);
+    // data.set('bugginess', bugginess);
+    // data.set('secureness', secureness);
+    // data.set('efficiency', efficiency);
 
 
     // Save encrypted data to Base
-    let encryptedData1 = await aliceBase.profileManager.updateData(data);
-    let encryptedData2 = await eveBase.profileManager.updateData(data1);
-    let encryptedData3 = await malloryBase.profileManager.updateData(data2);
+    let encryptedData = await bobBase.profileManager.updateData(data);
     console.log("\nUser data is encrypted and saved to Base.");
-    for (var [key, value] of encryptedData1.entries()) {
+    for (var [key, value] of encryptedData.entries()) {
         console.log("Key:" + key + ", Encrypted Value:" + value);
     }
 
     //give access
     const grantFields = new Map();
-    grantFields.set(commit_id1, 0);
-    await aliceBase.dataRequestManager.grantAccessForClient(reviewerKey, grantFields);
-    const grantFields1 = new Map();
-    grantFields1.set(commit_id2, 0);
-    await eveBase.dataRequestManager.grantAccessForClient(reviewerKey, grantFields1);
-    const grantFields2 = new Map();
-    grantFields2.set(commit_id3, 0);
-    await malloryBase.dataRequestManager.grantAccessForClient(reviewerKey, grantFields2);
+    grantFields.set(commit_id, 0);
+    // grantFields.set(bugginess, 0);
+    // grantFields.set(secureness, 0);
+    // grantFields.set(efficiency, 0);
+
+    await bobBase.dataRequestManager.grantAccessForClient(reviewerKey, grantFields);
 
     // console.log("IM A BANANA")
+    // alert('Bye');
 
-    // check approval
-    var temp = await reviewerBase.dataRequestManager.getRequests(reviewerKey, "");
+    //check approval
+    var temp = await bobBase.dataRequestManager.getRequests(reviewerKey, "");
     temp.forEach(async function(approval) {
         //respond to approval
-        console.log(await reviewerBase.profileManager.getAuthorizedData(approval.toPk,approval.responseData))
+        console.log(await bobBase.profileManager.getAuthorizedData(approval.toPk,approval.responseData))
     })
+
+
+
+
+    //read
+
+
+
+
+    // // Read saved data and decrypt
+    // let decryptedData = await base.profileManager.getData();
+    // console.log("\nUser data is retrieved from Base and decrypted.");
+    // for (var [key, value] of decryptedData.entries()) {
+    //     console.log("Key:" + key + ", Decrypted Value:" + value);
+    // }
 })();

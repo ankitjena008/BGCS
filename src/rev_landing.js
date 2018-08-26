@@ -43,9 +43,9 @@ require("babel-polyfill");
 // });
 (function () {
     return __awaiter(this, void 0, void 0, function () {
-        var getBase, getPublicKey, aliceBase, eveBase, malloryBase, reviewerBase, aliceKey, eveKey, malloryKey, reviewerKey, data, data1, data2, commit_id1, commit_id2, commit_id3, encryptedData1, encryptedData2, encryptedData3, _i, _a, _b, key, value, grantFields, grantFields1, grantFields2, temp;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var getBase, getPublicKey, reviewerKey, bobBase, temp, url_list, size, link_index;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
                     getBase = (function (passphrase) {
                         return __awaiter(this, void 0, void 0, function () {
@@ -97,89 +97,47 @@ require("babel-polyfill");
                             });
                         });
                     });
-                    console.log('Hello');
-                    return [4 /*yield*/, getBase("alice")];
-                case 1:
-                    aliceBase = _c.sent();
-                    return [4 /*yield*/, getBase("eve")];
-                case 2:
-                    eveBase = _c.sent();
-                    return [4 /*yield*/, getBase("mallory")];
-                case 3:
-                    malloryBase = _c.sent();
-                    return [4 /*yield*/, getBase("reviewer")];
-                case 4:
-                    reviewerBase = _c.sent();
-                    return [4 /*yield*/, getPublicKey("alice")];
-                case 5:
-                    aliceKey = _c.sent();
-                    return [4 /*yield*/, getPublicKey("eve")];
-                case 6:
-                    eveKey = _c.sent();
-                    return [4 /*yield*/, getPublicKey("mallory")];
-                case 7:
-                    malloryKey = _c.sent();
                     return [4 /*yield*/, getPublicKey("reviewer")];
-                case 8:
-                    reviewerKey = _c.sent();
-                    data = new Map();
-                    data1 = new Map();
-                    data2 = new Map();
-                    commit_id1 = "commit_1";
-                    commit_id2 = "commit_2";
-                    commit_id3 = "commit_3";
-                    data.set(commit_id1, "https://github.com/bitclave/base-tutorial/commit/3993254b7c13d7617b7f2add9cb00c24fd10508a");
-                    data1.set(commit_id2, "https://github.com/bitclave/base-tutorial/commit/64fd301d6d540d04468e43b6e5d2ea5bb870acd6");
-                    data2.set(commit_id3, "https://github.com/bitclave/base-tutorial/commit/8909a0a371d916914e64bb0b894f61552d55989c");
-                    return [4 /*yield*/, aliceBase.profileManager.updateData(data)];
-                case 9:
-                    encryptedData1 = _c.sent();
-                    return [4 /*yield*/, eveBase.profileManager.updateData(data1)];
-                case 10:
-                    encryptedData2 = _c.sent();
-                    return [4 /*yield*/, malloryBase.profileManager.updateData(data2)];
-                case 11:
-                    encryptedData3 = _c.sent();
-                    console.log("\nUser data is encrypted and saved to Base.");
-                    for (_i = 0, _a = encryptedData1.entries(); _i < _a.length; _i++) {
-                        _b = _a[_i], key = _b[0], value = _b[1];
-                        console.log("Key:" + key + ", Encrypted Value:" + value);
-                    }
-                    grantFields = new Map();
-                    grantFields.set(commit_id1, 0);
-                    return [4 /*yield*/, aliceBase.dataRequestManager.grantAccessForClient(reviewerKey, grantFields)];
-                case 12:
-                    _c.sent();
-                    grantFields1 = new Map();
-                    grantFields1.set(commit_id2, 0);
-                    return [4 /*yield*/, eveBase.dataRequestManager.grantAccessForClient(reviewerKey, grantFields1)];
-                case 13:
-                    _c.sent();
-                    grantFields2 = new Map();
-                    grantFields2.set(commit_id3, 0);
-                    return [4 /*yield*/, malloryBase.dataRequestManager.grantAccessForClient(reviewerKey, grantFields2)];
-                case 14:
-                    _c.sent();
-                    return [4 /*yield*/, reviewerBase.dataRequestManager.getRequests(reviewerKey, "")];
-                case 15:
-                    temp = _c.sent();
+                case 1:
+                    reviewerKey = _a.sent();
+                    return [4 /*yield*/, getBase("reviewer")];
+                case 2:
+                    bobBase = _a.sent();
+                    return [4 /*yield*/, bobBase.dataRequestManager.getRequests(reviewerKey, "")];
+                case 3:
+                    temp = _a.sent();
+                    url_list = [];
+                    size = 0;
+                    link_index = 1;
                     temp.forEach(function (approval) {
                         return __awaiter(this, void 0, void 0, function () {
-                            var _a, _b;
-                            return __generator(this, function (_c) {
-                                switch (_c.label) {
-                                    case 0:
-                                        //respond to approval
-                                        _b = (_a = console).log;
-                                        return [4 /*yield*/, reviewerBase.profileManager.getAuthorizedData(approval.toPk, approval.responseData)];
+                            var received_data;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, bobBase.profileManager.getAuthorizedData(approval.toPk, approval.responseData)];
                                     case 1:
-                                        //respond to approval
-                                        _b.apply(_a, [_c.sent()]);
+                                        received_data = _a.sent();
+                                        console.log(received_data);
+                                        received_data.forEach(function (obj) {
+                                            var body = document.getElementById('div_id');
+                                            // function temp1(){
+                                            //     window.open('template.html')
+                                            // }
+                                            body.innerHTML += "<p>" + obj.toString() + "</p>" + "<input type='button' onclick = 'window.open(\"template.html?\" + encodeURIComponent(\"" + obj.toString() + "\"));' value = 'Review Commit' id='link_'" + link_index.toString() + "'></br>";
+                                            // var button = <HTMLButtonElement>document.getElementById('link_' + link_index.toString());
+                                            // button.addEventListener('click', function(){
+                                            //     window.open('template.html?' + encodeURIComponent(obj.toString()));
+                                            // });    
+                                            link_index = link_index + 1;
+                                            console.log("Current object : " + obj.toString());
+                                            url_list.push(obj.toString());
+                                        });
                                         return [2 /*return*/];
                                 }
                             });
                         });
                     });
+                    console.log(url_list);
                     return [2 /*return*/];
             }
         });
