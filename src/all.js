@@ -102655,7 +102655,6 @@ require("babel-polyfill");
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
-                    alert('Hi');
                     getBase = (function (passphrase) {
                         return __awaiter(this, void 0, void 0, function () {
                             var base, keyPair, account, e_1;
@@ -102741,8 +102740,6 @@ require("babel-polyfill");
                     // grantFields.set(secureness, 0);
                     // grantFields.set(efficiency, 0);
                     _c.sent();
-                    console.log("IM A BANANA");
-                    alert('Bye');
                     return [4 /*yield*/, bobBase.dataRequestManager.getRequests(reviewerKey, "")];
                 case 5:
                     temp = _c.sent();
