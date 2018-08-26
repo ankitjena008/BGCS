@@ -102740,6 +102740,7 @@ require("babel-polyfill");
                     // grantFields.set(secureness, 0);
                     // grantFields.set(efficiency, 0);
                     _c.sent();
+                    alert('Review successfully submitted!');
                     return [4 /*yield*/, bobBase.dataRequestManager.getRequests(reviewerKey, "")];
                 case 5:
                     temp = _c.sent();

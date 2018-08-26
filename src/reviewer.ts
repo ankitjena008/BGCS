@@ -88,7 +88,7 @@ require("babel-polyfill");
 
     await bobBase.dataRequestManager.grantAccessForClient(reviewerKey, grantFields);
 
-    // console.log("IM A BANANA")
+    alert('Review successfully submitted!');
     // alert('Bye');
 
     //check approval
